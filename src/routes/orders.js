@@ -34,7 +34,7 @@ router.get('/', (req, res) => {
     params.push(financialStatus);
   }
 
-  query += ' ORDER BY created_at DESC LIMIT ? OFFSET ?';
+  query += ' ORDER BY synced_at DESC, updated_at DESC, created_at DESC LIMIT ? OFFSET ?';
   params.push(limit, offset);
 
   // Get total count
@@ -146,7 +146,7 @@ router.get('/debug/info', (req, res) => {
   const queries = [
     'SELECT COUNT(*) as total FROM orders',
     'SELECT COUNT(*) as recent FROM orders WHERE created_at >= date("now", "-7 days")',
-    'SELECT order_number, customer_name, total_price, created_at FROM orders ORDER BY created_at DESC LIMIT 10'
+    'SELECT order_number, customer_name, total_price, created_at, synced_at FROM orders ORDER BY synced_at DESC, updated_at DESC, created_at DESC LIMIT 10'
   ];
 
   Promise.all(queries.map(query => 
