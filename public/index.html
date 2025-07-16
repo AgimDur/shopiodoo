@@ -248,6 +248,9 @@
             <div class="section">
                 <h2>🏥 System Health</h2>
                 <div class="button-grid">
+                    <button class="btn btn-warning" onclick="testJS()">
+                        🧪 Test JavaScript
+                    </button>
                     <button class="btn btn-success" onclick="checkHealth()">
                         ❤️ Health Check
                     </button>
@@ -459,9 +462,29 @@
             }
         }
         
+        // Test function to verify JavaScript is working
+        function testJS() {
+            console.log('JavaScript is working!');
+            alert('JavaScript is working! If you see this, the buttons should work.');
+        }
+        
         // Auto-load dashboard stats on page load
         window.addEventListener('load', () => {
+            console.log('Page loaded, testing API...');
             checkHealth();
+        });
+        
+        // Add click event listeners as backup
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, setting up event listeners...');
+            
+            // Add event listeners to all buttons as backup
+            const buttons = document.querySelectorAll('.btn');
+            buttons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    console.log('Button clicked:', this.textContent);
+                });
+            });
         });
     </script>
 </body>
