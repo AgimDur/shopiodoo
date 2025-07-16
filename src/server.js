@@ -16,12 +16,13 @@ const PORT = process.env.PORT || 3000;
 // Trust proxy for Railway deployment
 app.set('trust proxy', 1);
 
-// Security middleware - configure helmet to allow inline scripts for dashboard
+// Security middleware - configure helmet to allow inline scripts and event handlers
 app.use(helmet({
   contentSecurityPolicy: {
     directives: {
       defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "'unsafe-inline'"],
+      scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
+      scriptSrcAttr: ["'unsafe-inline'"],
       styleSrc: ["'self'", "'unsafe-inline'"],
       imgSrc: ["'self'", "data:", "https:"],
     },
