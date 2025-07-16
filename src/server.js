@@ -31,14 +31,14 @@ app.use(limiter);
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
-// Routes
+// API Routes
 app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/sync', syncRoutes);
 app.use('/api/webhooks', webhookRoutes);
 
-// Root route - API info
-app.get('/', (req, res) => {
+// API info route
+app.get('/api', (req, res) => {
   res.json({
     name: 'Product Management System',
     version: '1.0.0',
@@ -53,6 +53,9 @@ app.get('/', (req, res) => {
     documentation: 'See README.md for full API documentation'
   });
 });
+
+// Serve static files (dashboard) - this will serve index.html at root
+app.use(express.static('public'));
 
 // Health check
 app.get('/health', (req, res) => {
