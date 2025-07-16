@@ -1,0 +1,30 @@
+{
+  "name": "product-management-system",
+  "version": "1.0.0",
+  "description": "E-commerce product management system with Shopify integration",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "build": "echo 'No build step required'",
+    "migrate": "node src/database/migrate.js",
+    "sync": "node scripts/cli.js sync-all",
+    "setup-webhooks": "node scripts/setup-webhooks.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "axios": "^1.5.0",
+    "sqlite3": "^5.1.6",
+    "node-cron": "^3.0.2",
+    "helmet": "^7.0.0",
+    "express-rate-limit": "^6.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "keywords": ["ecommerce", "product-management", "shopify", "integration"],
+  "author": "",
+  "license": "MIT"
+}
