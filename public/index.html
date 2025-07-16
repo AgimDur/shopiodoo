@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,96 +13,193 @@
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #f8fafc;
             min-height: 100vh;
-            padding: 20px;
         }
         
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            overflow: hidden;
+        .app-container {
+            display: flex;
+            min-height: 100vh;
         }
         
-        .header {
-            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 280px;
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
             color: white;
-            padding: 30px;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            box-shadow: 4px 0 20px rgba(0,0,0,0.1);
+        }
+        
+        .sidebar-header {
+            padding: 30px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
             text-align: center;
         }
         
-        .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
+        .sidebar-header h1 {
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+            font-weight: 700;
         }
         
-        .header p {
-            opacity: 0.9;
+        .sidebar-header p {
+            opacity: 0.8;
+            font-size: 0.85rem;
+        }
+        
+        .nav-menu {
+            padding: 20px 0;
+        }
+        
+        .nav-item {
+            display: block;
+            padding: 16px 25px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+        
+        .nav-item:hover {
+            background: rgba(255,255,255,0.1);
+            padding-left: 35px;
+        }
+        
+        .nav-item.active {
+            background: rgba(255,255,255,0.2);
+            border-right: 4px solid #60a5fa;
+        }
+        
+        .nav-item .icon {
+            margin-right: 12px;
+            width: 20px;
+            display: inline-block;
+        }
+        
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 30px;
+            background: #f8fafc;
+        }
+        
+        .page-header {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .page-header h2 {
+            color: #1e293b;
+            font-size: 2.2rem;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+        
+        .page-header p {
+            color: #64748b;
             font-size: 1.1rem;
         }
         
-        .dashboard {
+        /* Content Sections */
+        .content-section {
+            display: none;
+        }
+        
+        .content-section.active {
+            display: block;
+        }
+        
+        /* Cards */
+        .card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid #e2e8f0;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+        
+        .card-header {
+            padding: 25px 30px;
+            border-bottom: 1px solid #e2e8f0;
+            background: #f8fafc;
+        }
+        
+        .card-header h3 {
+            color: #1e293b;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .card-header p {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+        
+        .card-body {
             padding: 30px;
         }
         
-        .section {
-            margin-bottom: 40px;
-        }
-        
-        .section h2 {
-            color: #2c3e50;
-            margin-bottom: 20px;
-            font-size: 1.5rem;
-            border-bottom: 2px solid #ecf0f1;
-            padding-bottom: 10px;
-        }
-        
-        .button-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        /* Buttons */
+        .btn-group {
+            display: flex;
             gap: 15px;
-            margin-bottom: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
         }
         
         .btn {
-            padding: 15px 25px;
+            padding: 12px 24px;
             border: none;
-            border-radius: 8px;
-            font-size: 1rem;
+            border-radius: 10px;
+            font-size: 0.95rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
-            display: inline-block;
-            text-align: center;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
         
         .btn-primary {
-            background: linear-gradient(135deg, #3498db, #2980b9);
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
             color: white;
         }
         
         .btn-success {
-            background: linear-gradient(135deg, #27ae60, #229954);
+            background: linear-gradient(135deg, #10b981, #059669);
             color: white;
         }
         
         .btn-warning {
-            background: linear-gradient(135deg, #f39c12, #e67e22);
+            background: linear-gradient(135deg, #f59e0b, #d97706);
             color: white;
         }
         
         .btn-info {
-            background: linear-gradient(135deg, #17a2b8, #138496);
+            background: linear-gradient(135deg, #06b6d4, #0891b2);
             color: white;
         }
         
         .btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
         }
         
         .btn:disabled {
@@ -111,152 +208,472 @@
             transform: none;
         }
         
+        /* Status Messages */
         .status {
             padding: 20px;
-            border-radius: 8px;
+            border-radius: 12px;
             margin: 20px 0;
             font-weight: 500;
+            border-left: 4px solid;
         }
         
         .status.loading {
-            background: #fff3cd;
-            border: 1px solid #ffeaa7;
-            color: #856404;
+            background: #fef3c7;
+            border-color: #f59e0b;
+            color: #92400e;
         }
         
         .status.success {
-            background: #d4edda;
-            border: 1px solid #c3e6cb;
-            color: #155724;
+            background: #d1fae5;
+            border-color: #10b981;
+            color: #065f46;
         }
         
         .status.error {
-            background: #f8d7da;
-            border: 1px solid #f5c6cb;
-            color: #721c24;
+            background: #fee2e2;
+            border-color: #ef4444;
+            color: #991b1b;
         }
         
+        /* Stats Grid */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
-            margin-top: 20px;
+            margin-bottom: 30px;
         }
         
         .stat-card {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 8px;
+            background: white;
+            padding: 25px;
+            border-radius: 16px;
             text-align: center;
-            border: 1px solid #e9ecef;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
         }
         
         .stat-number {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #2c3e50;
-            margin-bottom: 5px;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 8px;
         }
         
         .stat-label {
-            color: #6c757d;
+            color: #64748b;
             font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        /* Data Tables */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .data-table th {
+            background: #f8fafc;
+            padding: 16px;
+            text-align: left;
+            font-weight: 600;
+            color: #374151;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .data-table td {
+            padding: 16px;
+            border-bottom: 1px solid #f3f4f6;
+            color: #374151;
+        }
+        
+        .data-table tr:hover {
+            background: #f9fafb;
+        }
+        
+        .data-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        /* Product/Order Cards */
+        .item-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .item-card:hover {
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+        
+        .item-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .item-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 5px;
+        }
+        
+        .item-meta {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+        
+        .item-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .detail-item {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .detail-label {
+            font-size: 0.8rem;
+            color: #64748b;
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+        
+        .detail-value {
+            font-size: 0.95rem;
+            color: #1e293b;
+            font-weight: 500;
+        }
+        
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .badge-success {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        
+        .badge-warning {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        
+        .badge-error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        
+        .badge-info {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        
+        /* Loading Spinner */
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
         
         .hidden {
             display: none;
         }
         
-        .data-preview {
-            background: #f8f9fa;
-            border: 1px solid #e9ecef;
-            border-radius: 8px;
-            padding: 20px;
-            margin-top: 20px;
-            max-height: 400px;
-            overflow-y: auto;
-        }
-        
-        .data-preview pre {
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            font-size: 0.9rem;
-            line-height: 1.4;
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                position: relative;
+                height: auto;
+            }
+            
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>🛍️ Product Management Dashboard</h1>
-            <p>Shopify Integration & E-commerce Management System</p>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h1>🛍️ ShopSync</h1>
+                <p>Product Management System</p>
+            </div>
+            
+            <nav class="nav-menu">
+                <button class="nav-item active" onclick="showSection('dashboard')">
+                    <span class="icon">📊</span>
+                    Dashboard
+                </button>
+                <button class="nav-item" onclick="showSection('products')">
+                    <span class="icon">📦</span>
+                    Produkte
+                </button>
+                <button class="nav-item" onclick="showSection('orders')">
+                    <span class="icon">📋</span>
+                    Bestellungen
+                </button>
+                <button class="nav-item" onclick="showSection('sync')">
+                    <span class="icon">🔄</span>
+                    Synchronisation
+                </button>
+                <button class="nav-item" onclick="showSection('settings')">
+                    <span class="icon">⚙️</span>
+                    Einstellungen
+                </button>
+            </nav>
         </div>
         
-        <div class="dashboard">
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Dashboard Section -->
+            <div id="dashboard" class="content-section active">
+                <div class="page-header">
+                    <h2>Dashboard</h2>
+                    <p>Übersicht über Ihre E-Commerce Daten</p>
+                </div>
+                
+                <div class="stats-grid" id="dashboardStats">
+                    <!-- Stats werden hier geladen -->
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Schnellaktionen</h3>
+                        <p>Häufig verwendete Funktionen</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="btn-group">
+                            <button class="btn btn-success" onclick="syncFull()">
+                                <span>🚀</span> Vollständige Synchronisation
+                            </button>
+                            <button class="btn btn-info" onclick="loadDashboardStats()">
+                                <span>📊</span> Statistiken aktualisieren
+                            </button>
+                            <button class="btn btn-primary" onclick="checkHealth()">
+                                <span>❤️</span> System-Status prüfen
+                            </button>
+                        </div>
+                        <div id="dashboardStatus"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Products Section -->
+            <div id="products" class="content-section">
+                <div class="page-header">
+                    <h2>Produkte</h2>
+                    <p>Verwalten Sie Ihre Shopify Produkte</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Produkt-Aktionen</h3>
+                        <p>Synchronisation und Verwaltung</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="btn-group">
+                            <button class="btn btn-primary" onclick="syncProducts()">
+                                <span>📦</span> Produkte synchronisieren
+                            </button>
+                            <button class="btn btn-info" onclick="loadProducts()">
+                                <span>👁️</span> Produkte anzeigen
+                            </button>
+                            <button class="btn btn-warning" onclick="getProductStats()">
+                                <span>📈</span> Produkt-Statistiken
+                            </button>
+                        </div>
+                        <div id="productStatus"></div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Produktliste</h3>
+                        <p>Ihre synchronisierten Produkte</p>
+                    </div>
+                    <div class="card-body">
+                        <div id="productsList">
+                            <p class="text-center">Klicken Sie auf "Produkte anzeigen" um Ihre Produkte zu laden.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Orders Section -->
+            <div id="orders" class="content-section">
+                <div class="page-header">
+                    <h2>Bestellungen</h2>
+                    <p>Verwalten Sie Ihre Shopify Bestellungen</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Bestellungs-Aktionen</h3>
+                        <p>Synchronisation und Verwaltung</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="btn-group">
+                            <button class="btn btn-primary" onclick="syncOrders()">
+                                <span>📋</span> Bestellungen synchronisieren
+                            </button>
+                            <button class="btn btn-info" onclick="loadOrders()">
+                                <span>👁️</span> Bestellungen anzeigen
+                            </button>
+                            <button class="btn btn-warning" onclick="getOrderStats()">
+                                <span>📊</span> Bestellungs-Statistiken
+                            </button>
+                        </div>
+                        <div id="orderStatus"></div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Bestellungsliste</h3>
+                        <p>Ihre synchronisierten Bestellungen</p>
+                    </div>
+                    <div class="card-body">
+                        <div id="ordersList">
+                            <p class="text-center">Klicken Sie auf "Bestellungen anzeigen" um Ihre Bestellungen zu laden.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
             <!-- Sync Section -->
-            <div class="section">
-                <h2>🔄 Shopify Synchronization</h2>
-                <div class="button-grid">
-                    <button class="btn btn-primary" onclick="syncProducts()">
-                        📦 Sync Products
-                    </button>
-                    <button class="btn btn-primary" onclick="syncOrders()">
-                        📋 Sync Orders
-                    </button>
-                    <button class="btn btn-success" onclick="syncFull()">
-                        🚀 Full Sync (Products + Orders)
-                    </button>
-                    <button class="btn btn-info" onclick="getSyncStatus()">
-                        📊 Sync Status
-                    </button>
+            <div id="sync" class="content-section">
+                <div class="page-header">
+                    <h2>Synchronisation</h2>
+                    <p>Shopify Daten synchronisieren und überwachen</p>
                 </div>
-                <div id="syncStatus" class="hidden"></div>
-            </div>
-            
-            <!-- Data Viewing Section -->
-            <div class="section">
-                <h2>📊 View Data</h2>
-                <div class="button-grid">
-                    <button class="btn btn-info" onclick="getProducts()">
-                        📦 View Products
-                    </button>
-                    <button class="btn btn-info" onclick="getOrders()">
-                        📋 View Orders
-                    </button>
-                    <button class="btn btn-warning" onclick="getProductStats()">
-                        📈 Product Statistics
-                    </button>
-                    <button class="btn btn-warning" onclick="getOrderStats()">
-                        📊 Order Statistics
-                    </button>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Synchronisations-Optionen</h3>
+                        <p>Wählen Sie was synchronisiert werden soll</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="btn-group">
+                            <button class="btn btn-success" onclick="syncFull()">
+                                <span>🚀</span> Vollständige Synchronisation
+                            </button>
+                            <button class="btn btn-primary" onclick="syncProducts()">
+                                <span>📦</span> Nur Produkte
+                            </button>
+                            <button class="btn btn-primary" onclick="syncOrders()">
+                                <span>📋</span> Nur Bestellungen
+                            </button>
+                        </div>
+                        <div id="syncStatus"></div>
+                    </div>
                 </div>
-                <div id="dataPreview" class="hidden"></div>
-            </div>
-            
-            <!-- Statistics Dashboard -->
-            <div class="section">
-                <h2>📈 Quick Stats</h2>
-                <button class="btn btn-success" onclick="loadDashboardStats()">
-                    🔄 Refresh Dashboard Stats
-                </button>
-                <div id="statsContainer" class="stats-grid hidden">
-                    <!-- Stats will be loaded here -->
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Synchronisations-Verlauf</h3>
+                        <p>Übersicht über vergangene Synchronisationen</p>
+                    </div>
+                    <div class="card-body">
+                        <button class="btn btn-info" onclick="getSyncHistory()">
+                            <span>📜</span> Verlauf anzeigen
+                        </button>
+                        <div id="syncHistoryList"></div>
+                    </div>
                 </div>
             </div>
             
-            <!-- System Health -->
-            <div class="section">
-                <h2>🏥 System Health</h2>
-                <div class="button-grid">
-                    <button class="btn btn-warning" onclick="testJS()">
-                        🧪 Test JavaScript
-                    </button>
-                    <button class="btn btn-success" onclick="checkHealth()">
-                        ❤️ Health Check
-                    </button>
-                    <button class="btn btn-info" onclick="getSyncHistory()">
-                        📜 Sync History
-                    </button>
+            <!-- Settings Section -->
+            <div id="settings" class="content-section">
+                <div class="page-header">
+                    <h2>Einstellungen</h2>
+                    <p>System-Konfiguration und Überwachung</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>System-Status</h3>
+                        <p>Überwachen Sie die Systemgesundheit</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="btn-group">
+                            <button class="btn btn-success" onclick="checkHealth()">
+                                <span>❤️</span> Gesundheits-Check
+                            </button>
+                            <button class="btn btn-info" onclick="getSyncStatus()">
+                                <span>📊</span> Sync-Status
+                            </button>
+                            <button class="btn btn-warning" onclick="testJS()">
+                                <span>🧪</span> JavaScript Test
+                            </button>
+                        </div>
+                        <div id="settingsStatus"></div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Shopify Integration</h3>
+                        <p>Verbindungseinstellungen zu Shopify</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="detail-item">
+                            <div class="detail-label">Store URL</div>
+                            <div class="detail-value">gisadashop.myshopify.com</div>
+                        </div>
+                        <div class="detail-item" style="margin-top: 15px;">
+                            <div class="detail-label">API Version</div>
+                            <div class="detail-value">2023-10</div>
+                        </div>
+                        <div class="detail-item" style="margin-top: 15px;">
+                            <div class="detail-label">Webhook URL</div>
+                            <div class="detail-value">https://web-production-f552.up.railway.app</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -265,38 +682,36 @@
     <script>
         const API_BASE = window.location.origin;
         
-        function showStatus(message, type = 'loading') {
-            const statusDiv = document.getElementById('syncStatus');
+        // Navigation
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Remove active class from all nav items
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Add active class to clicked nav item
+            event.target.classList.add('active');
+        }
+        
+        // Status Display Functions
+        function showStatus(message, type = 'loading', containerId = 'dashboardStatus') {
+            const statusDiv = document.getElementById(containerId);
             statusDiv.className = `status ${type}`;
-            statusDiv.textContent = message;
+            statusDiv.innerHTML = type === 'loading' ? 
+                `<span class="loading-spinner"></span> ${message}` : 
+                message;
             statusDiv.classList.remove('hidden');
         }
         
-        function showData(data, title = 'Data') {
-            const previewDiv = document.getElementById('dataPreview');
-            
-            // Check if data is empty
-            if (!data || (Array.isArray(data) && data.length === 0) || 
-                (data.products && data.products.length === 0) || 
-                (data.orders && data.orders.length === 0)) {
-                previewDiv.innerHTML = `
-                    <h3>${title}</h3>
-                    <div class="status error">
-                        ❌ No data found. Try running a sync first!
-                    </div>
-                `;
-            } else {
-                previewDiv.innerHTML = `
-                    <h3>${title}</h3>
-                    <pre>${JSON.stringify(data, null, 2)}</pre>
-                `;
-            }
-            previewDiv.classList.remove('hidden');
-            
-            // Scroll to the data preview
-            previewDiv.scrollIntoView({ behavior: 'smooth' });
-        }
-        
+        // API Call Function
         async function apiCall(endpoint, method = 'GET') {
             console.log(`Making API call: ${method} ${API_BASE}${endpoint}`);
             try {
@@ -307,17 +722,12 @@
                     }
                 });
                 
-                console.log(`Response status: ${response.status}`);
-                
                 if (!response.ok) {
                     const errorText = await response.text();
-                    console.error(`API Error Response: ${errorText}`);
-                    throw new Error(`HTTP ${response.status}: ${response.statusText} - ${errorText}`);
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
                 }
                 
-                const data = await response.json();
-                console.log('API Response:', data);
-                return data;
+                return await response.json();
             } catch (error) {
                 console.error('API Error:', error);
                 throw error;
@@ -326,78 +736,35 @@
         
         // Sync Functions
         async function syncProducts() {
-            showStatus('🔄 Syncing products from Shopify...', 'loading');
+            showStatus('Produkte werden synchronisiert...', 'loading', 'productStatus');
             try {
                 const result = await apiCall('/api/sync/products', 'POST');
-                showStatus(`✅ Products synced successfully! Processed: ${result.processed}, Created: ${result.created}, Updated: ${result.updated}`, 'success');
+                showStatus(`✅ Produkte erfolgreich synchronisiert! Verarbeitet: ${result.processed}, Erstellt: ${result.created}, Aktualisiert: ${result.updated}`, 'success', 'productStatus');
+                loadDashboardStats(); // Refresh stats
             } catch (error) {
-                showStatus(`❌ Sync failed: ${error.message}`, 'error');
+                showStatus(`❌ Synchronisation fehlgeschlagen: ${error.message}`, 'error', 'productStatus');
             }
         }
         
         async function syncOrders() {
-            showStatus('🔄 Syncing orders from Shopify...', 'loading');
+            showStatus('Bestellungen werden synchronisiert...', 'loading', 'orderStatus');
             try {
                 const result = await apiCall('/api/sync/orders', 'POST');
-                showStatus(`✅ Orders synced successfully! Processed: ${result.processed}, Created: ${result.created}, Updated: ${result.updated}`, 'success');
+                showStatus(`✅ Bestellungen erfolgreich synchronisiert! Verarbeitet: ${result.processed}, Erstellt: ${result.created}, Aktualisiert: ${result.updated}`, 'success', 'orderStatus');
+                loadDashboardStats(); // Refresh stats
             } catch (error) {
-                showStatus(`❌ Sync failed: ${error.message}`, 'error');
+                showStatus(`❌ Synchronisation fehlgeschlagen: ${error.message}`, 'error', 'orderStatus');
             }
         }
         
         async function syncFull() {
-            showStatus('🚀 Starting full sync (products + orders)...', 'loading');
+            showStatus('Vollständige Synchronisation wird gestartet...', 'loading', 'syncStatus');
             try {
                 const result = await apiCall('/api/sync/full', 'POST');
-                showStatus(`✅ Full sync completed! Products: ${result.products.processed}, Orders: ${result.orders.processed}`, 'success');
+                showStatus(`✅ Vollständige Synchronisation abgeschlossen! Produkte: ${result.products.processed}, Bestellungen: ${result.orders.processed}`, 'success', 'syncStatus');
+                loadDashboardStats(); // Refresh stats
             } catch (error) {
-                showStatus(`❌ Full sync failed: ${error.message}`, 'error');
-            }
-        }
-        
-        async function getSyncStatus() {
-            try {
-                const result = await apiCall('/api/sync/status');
-                showData(result, '📊 Sync Status');
-            } catch (error) {
-                showStatus(`❌ Failed to get sync status: ${error.message}`, 'error');
-            }
-        }
-        
-        // Data Viewing Functions
-        async function getProducts() {
-            try {
-                const result = await apiCall('/api/products');
-                showData(result, `📦 Products (${result.products.length} items)`);
-            } catch (error) {
-                showStatus(`❌ Failed to get products: ${error.message}`, 'error');
-            }
-        }
-        
-        async function getOrders() {
-            try {
-                const result = await apiCall('/api/orders');
-                showData(result, `📋 Orders (${result.orders.length} items)`);
-            } catch (error) {
-                showStatus(`❌ Failed to get orders: ${error.message}`, 'error');
-            }
-        }
-        
-        async function getProductStats() {
-            try {
-                const result = await apiCall('/api/products/stats/overview');
-                showData(result, '📈 Product Statistics');
-            } catch (error) {
-                showStatus(`❌ Failed to get product stats: ${error.message}`, 'error');
-            }
-        }
-        
-        async function getOrderStats() {
-            try {
-                const result = await apiCall('/api/orders/stats/overview');
-                showData(result, '📊 Order Statistics');
-            } catch (error) {
-                showStatus(`❌ Failed to get order stats: ${error.message}`, 'error');
+                showStatus(`❌ Vollständige Synchronisation fehlgeschlagen: ${error.message}`, 'error', 'syncStatus');
             }
         }
         
@@ -409,82 +776,245 @@
                     apiCall('/api/orders/stats/overview')
                 ]);
                 
-                const statsContainer = document.getElementById('statsContainer');
+                const statsContainer = document.getElementById('dashboardStats');
                 statsContainer.innerHTML = `
                     <div class="stat-card">
                         <div class="stat-number">${productStats.total || 0}</div>
-                        <div class="stat-label">Total Products</div>
+                        <div class="stat-label">Gesamt Produkte</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-number">${productStats.active || 0}</div>
-                        <div class="stat-label">Active Products</div>
+                        <div class="stat-label">Aktive Produkte</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-number">${orderStats.total || 0}</div>
-                        <div class="stat-label">Total Orders</div>
+                        <div class="stat-label">Gesamt Bestellungen</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-number">$${(orderStats.totalRevenue || 0).toFixed(2)}</div>
-                        <div class="stat-label">Total Revenue</div>
+                        <div class="stat-number">€${(orderStats.totalRevenue || 0).toFixed(2)}</div>
+                        <div class="stat-label">Gesamt Umsatz</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-number">${productStats.totalInventory || 0}</div>
-                        <div class="stat-label">Total Inventory</div>
+                        <div class="stat-label">Lagerbestand</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-number">$${(orderStats.avgOrderValue || 0).toFixed(2)}</div>
-                        <div class="stat-label">Avg Order Value</div>
+                        <div class="stat-number">€${(orderStats.avgOrderValue || 0).toFixed(2)}</div>
+                        <div class="stat-label">Ø Bestellwert</div>
                     </div>
                 `;
-                statsContainer.classList.remove('hidden');
-                showStatus('✅ Dashboard stats loaded successfully!', 'success');
+                showStatus('✅ Dashboard-Statistiken erfolgreich geladen!', 'success', 'dashboardStatus');
             } catch (error) {
-                showStatus(`❌ Failed to load dashboard stats: ${error.message}`, 'error');
+                showStatus(`❌ Fehler beim Laden der Statistiken: ${error.message}`, 'error', 'dashboardStatus');
             }
         }
         
-        // System Health
+        // Load Products
+        async function loadProducts() {
+            showStatus('Produkte werden geladen...', 'loading', 'productStatus');
+            try {
+                const result = await apiCall('/api/products');
+                const productsList = document.getElementById('productsList');
+                
+                if (!result.products || result.products.length === 0) {
+                    productsList.innerHTML = `
+                        <div class="status error">
+                            ❌ Keine Produkte gefunden. Führen Sie zuerst eine Synchronisation durch!
+                        </div>
+                    `;
+                } else {
+                    productsList.innerHTML = result.products.map(product => `
+                        <div class="item-card">
+                            <div class="item-header">
+                                <div>
+                                    <div class="item-title">${product.title}</div>
+                                    <div class="item-meta">SKU: ${product.sku || 'N/A'} | Vendor: ${product.vendor || 'N/A'}</div>
+                                </div>
+                                <span class="badge ${product.status === 'active' ? 'badge-success' : 'badge-warning'}">
+                                    ${product.status}
+                                </span>
+                            </div>
+                            <div class="item-details">
+                                <div class="detail-item">
+                                    <div class="detail-label">Preis</div>
+                                    <div class="detail-value">€${product.price || '0.00'}</div>
+                                </div>
+                                <div class="detail-item">
+                                    <div class="detail-label">Lagerbestand</div>
+                                    <div class="detail-value">${product.inventory_quantity || 0}</div>
+                                </div>
+                                <div class="detail-item">
+                                    <div class="detail-label">Produkttyp</div>
+                                    <div class="detail-value">${product.product_type || 'N/A'}</div>
+                                </div>
+                                <div class="detail-item">
+                                    <div class="detail-label">Zuletzt aktualisiert</div>
+                                    <div class="detail-value">${new Date(product.updated_at).toLocaleDateString('de-DE')}</div>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+                showStatus(`✅ ${result.products.length} Produkte geladen`, 'success', 'productStatus');
+            } catch (error) {
+                showStatus(`❌ Fehler beim Laden der Produkte: ${error.message}`, 'error', 'productStatus');
+            }
+        }
+        
+        // Load Orders
+        async function loadOrders() {
+            showStatus('Bestellungen werden geladen...', 'loading', 'orderStatus');
+            try {
+                const result = await apiCall('/api/orders');
+                const ordersList = document.getElementById('ordersList');
+                
+                if (!result.orders || result.orders.length === 0) {
+                    ordersList.innerHTML = `
+                        <div class="status error">
+                            ❌ Keine Bestellungen gefunden. Führen Sie zuerst eine Synchronisation durch!
+                        </div>
+                    `;
+                } else {
+                    ordersList.innerHTML = result.orders.map(order => `
+                        <div class="item-card">
+                            <div class="item-header">
+                                <div>
+                                    <div class="item-title">Bestellung #${order.order_number}</div>
+                                    <div class="item-meta">${order.customer_name || order.email || 'Unbekannter Kunde'}</div>
+                                </div>
+                                <span class="badge ${order.financial_status === 'paid' ? 'badge-success' : 'badge-warning'}">
+                                    ${order.financial_status}
+                                </span>
+                            </div>
+                            <div class="item-details">
+                                <div class="detail-item">
+                                    <div class="detail-label">Gesamtbetrag</div>
+                                    <div class="detail-value">€${order.total_price || '0.00'}</div>
+                                </div>
+                                <div class="detail-item">
+                                    <div class="detail-label">Status</div>
+                                    <div class="detail-value">${order.order_status || 'N/A'}</div>
+                                </div>
+                                <div class="detail-item">
+                                    <div class="detail-label">Währung</div>
+                                    <div class="detail-value">${order.currency || 'EUR'}</div>
+                                </div>
+                                <div class="detail-item">
+                                    <div class="detail-label">Erstellt am</div>
+                                    <div class="detail-value">${new Date(order.created_at).toLocaleDateString('de-DE')}</div>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+                showStatus(`✅ ${result.orders.length} Bestellungen geladen`, 'success', 'orderStatus');
+            } catch (error) {
+                showStatus(`❌ Fehler beim Laden der Bestellungen: ${error.message}`, 'error', 'orderStatus');
+            }
+        }
+        
+        // Statistics Functions
+        async function getProductStats() {
+            try {
+                const result = await apiCall('/api/products/stats/overview');
+                showStatus(`📈 Produkt-Statistiken: ${result.total} Gesamt, ${result.active} Aktiv, ${result.totalInventory} Lagerbestand`, 'success', 'productStatus');
+            } catch (error) {
+                showStatus(`❌ Fehler beim Laden der Produkt-Statistiken: ${error.message}`, 'error', 'productStatus');
+            }
+        }
+        
+        async function getOrderStats() {
+            try {
+                const result = await apiCall('/api/orders/stats/overview');
+                showStatus(`📊 Bestellungs-Statistiken: ${result.total} Gesamt, €${(result.totalRevenue || 0).toFixed(2)} Umsatz, €${(result.avgOrderValue || 0).toFixed(2)} Ø Wert`, 'success', 'orderStatus');
+            } catch (error) {
+                showStatus(`❌ Fehler beim Laden der Bestellungs-Statistiken: ${error.message}`, 'error', 'orderStatus');
+            }
+        }
+        
+        // System Functions
         async function checkHealth() {
             try {
                 const result = await apiCall('/health');
-                showStatus(`✅ System is healthy! Status: ${result.status}, Time: ${result.timestamp}`, 'success');
+                showStatus(`✅ System ist gesund! Status: ${result.status}`, 'success', 'settingsStatus');
             } catch (error) {
-                showStatus(`❌ Health check failed: ${error.message}`, 'error');
+                showStatus(`❌ Gesundheits-Check fehlgeschlagen: ${error.message}`, 'error', 'settingsStatus');
+            }
+        }
+        
+        async function getSyncStatus() {
+            try {
+                const result = await apiCall('/api/sync/status');
+                showStatus(`📊 Sync-Status abgerufen`, 'success', 'settingsStatus');
+            } catch (error) {
+                showStatus(`❌ Fehler beim Abrufen des Sync-Status: ${error.message}`, 'error', 'settingsStatus');
             }
         }
         
         async function getSyncHistory() {
             try {
                 const result = await apiCall('/api/sync/history');
-                showData(result, '📜 Sync History');
+                const historyList = document.getElementById('syncHistoryList');
+                
+                if (!result.logs || result.logs.length === 0) {
+                    historyList.innerHTML = `
+                        <div class="status error">
+                            ❌ Kein Synchronisations-Verlauf gefunden.
+                        </div>
+                    `;
+                } else {
+                    historyList.innerHTML = `
+                        <div style="margin-top: 20px;">
+                            ${result.logs.map(log => `
+                                <div class="item-card">
+                                    <div class="item-header">
+                                        <div>
+                                            <div class="item-title">${log.sync_type.toUpperCase()} Synchronisation</div>
+                                            <div class="item-meta">${new Date(log.started_at).toLocaleString('de-DE')}</div>
+                                        </div>
+                                        <span class="badge ${log.status === 'completed' ? 'badge-success' : log.status === 'failed' ? 'badge-error' : 'badge-warning'}">
+                                            ${log.status}
+                                        </span>
+                                    </div>
+                                    <div class="item-details">
+                                        <div class="detail-item">
+                                            <div class="detail-label">Verarbeitet</div>
+                                            <div class="detail-value">${log.records_processed || 0}</div>
+                                        </div>
+                                        <div class="detail-item">
+                                            <div class="detail-label">Erstellt</div>
+                                            <div class="detail-value">${log.records_created || 0}</div>
+                                        </div>
+                                        <div class="detail-item">
+                                            <div class="detail-label">Aktualisiert</div>
+                                            <div class="detail-value">${log.records_updated || 0}</div>
+                                        </div>
+                                        ${log.error_message ? `
+                                        <div class="detail-item">
+                                            <div class="detail-label">Fehler</div>
+                                            <div class="detail-value" style="color: #ef4444;">${log.error_message}</div>
+                                        </div>
+                                        ` : ''}
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                }
             } catch (error) {
-                showStatus(`❌ Failed to get sync history: ${error.message}`, 'error');
+                showStatus(`❌ Fehler beim Laden des Sync-Verlaufs: ${error.message}`, 'error', 'syncStatus');
             }
         }
         
-        // Test function to verify JavaScript is working
         function testJS() {
-            console.log('JavaScript is working!');
-            alert('JavaScript is working! If you see this, the buttons should work.');
+            alert('JavaScript funktioniert einwandfrei! 🎉');
         }
         
-        // Auto-load dashboard stats on page load
+        // Initialize Dashboard
         window.addEventListener('load', () => {
-            console.log('Page loaded, testing API...');
+            console.log('Dashboard geladen, lade Statistiken...');
+            loadDashboardStats();
             checkHealth();
-        });
-        
-        // Add click event listeners as backup
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('DOM loaded, setting up event listeners...');
-            
-            // Add event listeners to all buttons as backup
-            const buttons = document.querySelectorAll('.btn');
-            buttons.forEach(button => {
-                button.addEventListener('click', function(e) {
-                    console.log('Button clicked:', this.textContent);
-                });
-            });
         });
     </script>
 </body>
