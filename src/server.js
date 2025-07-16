@@ -37,6 +37,23 @@ app.use('/api/orders', orderRoutes);
 app.use('/api/sync', syncRoutes);
 app.use('/api/webhooks', webhookRoutes);
 
+// Root route - API info
+app.get('/', (req, res) => {
+  res.json({
+    name: 'Product Management System',
+    version: '1.0.0',
+    status: 'running',
+    endpoints: {
+      health: '/health',
+      products: '/api/products',
+      orders: '/api/orders',
+      sync: '/api/sync',
+      webhooks: '/api/webhooks'
+    },
+    documentation: 'See README.md for full API documentation'
+  });
+});
+
 // Health check
 app.get('/health', (req, res) => {
   res.json({ status: 'OK', timestamp: new Date().toISOString() });
