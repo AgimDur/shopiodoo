@@ -271,11 +271,27 @@
         
         function showData(data, title = 'Data') {
             const previewDiv = document.getElementById('dataPreview');
-            previewDiv.innerHTML = `
-                <h3>${title}</h3>
-                <pre>${JSON.stringify(data, null, 2)}</pre>
-            `;
+            
+            // Check if data is empty
+            if (!data || (Array.isArray(data) && data.length === 0) || 
+                (data.products && data.products.length === 0) || 
+                (data.orders && data.orders.length === 0)) {
+                previewDiv.innerHTML = `
+                    <h3>${title}</h3>
+                    <div class="status error">
+                        ❌ No data found. Try running a sync first!
+                    </div>
+                `;
+            } else {
+                previewDiv.innerHTML = `
+                    <h3>${title}</h3>
+                    <pre>${JSON.stringify(data, null, 2)}</pre>
+                `;
+            }
             previewDiv.classList.remove('hidden');
+            
+            // Scroll to the data preview
+            previewDiv.scrollIntoView({ behavior: 'smooth' });
         }
         
         async function apiCall(endpoint, method = 'GET') {
