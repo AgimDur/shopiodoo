@@ -5,7 +5,7 @@ const router = express.Router();
 // Get all orders with pagination and filtering
 router.get('/', (req, res) => {
   const page = parseInt(req.query.page) || 1;
-  const limit = parseInt(req.query.limit) || 50;
+  const limit = parseInt(req.query.limit) || 100; // Erhöht von 50 auf 100
   const offset = (page - 1) * limit;
   const search = req.query.search;
   const status = req.query.status;
@@ -135,6 +135,40 @@ router.get('/stats/overview', (req, res) => {
       totalRevenue: results[3].total_revenue || 0,
       avgOrderValue: results[4].avg_order_value || 0,
       dailyStats: results[5]
+    });
+  }).catch(err => {
+    res.status(500).json({ error: err.message });
+  });
+});
+
+// Debug route to check order count and recent orders
+router.get('/debug/info', (req, res) => {
+  const queries = [
+    'SELECT COUNT(*) as total FROM orders',
+    'SELECT COUNT(*) as recent FROM orders WHERE created_at >= date("now", "-7 days")',
+    'SELECT order_number, customer_name, total_price, created_at FROM orders ORDER BY created_at DESC LIMIT 10'
+  ];
+
+  Promise.all(queries.map(query => 
+    new Promise((resolve, reject) => {
+      if (query.includes('LIMIT')) {
+        db.all(query, (err, rows) => {
+          if (err) reject(err);
+          else resolve(rows);
+        });
+      } else {
+        db.get(query, (err, row) => {
+          if (err) reject(err);
+          else resolve(row);
+        });
+      }
+    })
+  )).then(results => {
+    res.json({
+      totalOrders: results[0].total,
+      recentOrders: results[1].recent,
+      latestOrders: results[2],
+      timestamp: new Date().toISOString()
     });
   }).catch(err => {
     res.status(500).json({ error: err.message });
