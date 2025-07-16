@@ -126,4 +126,56 @@ router.get('/status', (req, res) => {
   });
 });
 
+// Get scheduler status
+router.get('/scheduler/status', (req, res) => {
+  // This would need to be implemented with access to the scheduler instance
+  // For now, return basic info
+  res.json({
+    enabled: process.env.NODE_ENV === 'production',
+    environment: process.env.NODE_ENV,
+    schedules: {
+      products: 'Every 2 hours',
+      orders: 'Every 15 minutes', 
+      daily: 'Daily at 2 AM'
+    },
+    nextRuns: {
+      products: 'Next even hour (00:00, 02:00, 04:00, etc.)',
+      orders: 'Every 15 minutes (:00, :15, :30, :45)',
+      daily: 'Tomorrow at 2:00 AM'
+    }
+  });
+});
+
+// Setup webhooks automatically
+router.post('/webhooks/setup', async (req, res) => {
+  try {
+    const setupWebhooks = require('../../scripts/setup-webhooks');
+    await setupWebhooks();
+    res.json({
+      success: true,
+      message: 'Webhooks successfully configured',
+      webhooks: [
+        'products/create',
+        'products/update', 
+        'orders/create',
+        'orders/updated',
+        'orders/paid',
+        'orders/cancelled'
+      ]
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error.message,
+      instructions: {
+        manual_setup: 'Go to Shopify Admin → Settings → Notifications → Webhooks',
+        urls: {
+          products: `${req.protocol}://${req.get('host')}/api/webhooks/products`,
+          orders: `${req.protocol}://${req.get('host')}/api/webhooks/orders`
+        }
+      }
+    });
+  }
+});
+
 module.exports = router;

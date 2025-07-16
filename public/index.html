@@ -647,11 +647,34 @@
                             <button class="btn btn-info" onclick="getSyncStatus()">
                                 <span>📊</span> Sync-Status
                             </button>
+                            <button class="btn btn-info" onclick="getSchedulerStatus()">
+                                <span>⏰</span> Auto-Sync Status
+                            </button>
                             <button class="btn btn-warning" onclick="testJS()">
                                 <span>🧪</span> JavaScript Test
                             </button>
                         </div>
                         <div id="settingsStatus"></div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Automatische Synchronisation</h3>
+                        <p>Konfiguration der automatischen Shopify-Synchronisation</p>
+                    </div>
+                    <div class="card-body">
+                        <div id="schedulerInfo" class="item-details">
+                            <!-- Scheduler info wird hier geladen -->
+                        </div>
+                        <div class="btn-group" style="margin-top: 20px;">
+                            <button class="btn btn-success" onclick="setupWebhooks()">
+                                <span>🔗</span> Webhooks einrichten
+                            </button>
+                            <button class="btn btn-info" onclick="getSchedulerStatus()">
+                                <span>🔄</span> Status aktualisieren
+                            </button>
+                        </div>
                     </div>
                 </div>
                 
@@ -1015,6 +1038,86 @@
             console.log('Dashboard geladen, lade Statistiken...');
             loadDashboardStats();
             checkHealth();
+        });
+    </script>
+</body>
+</html>  
+      // Scheduler Status Functions
+        async function getSchedulerStatus() {
+            showStatus('Auto-Sync Status wird geladen...', 'loading', 'settingsStatus');
+            try {
+                const result = await apiCall('/api/sync/scheduler/status');
+                const schedulerInfo = document.getElementById('schedulerInfo');
+                
+                schedulerInfo.innerHTML = `
+                    <div class="detail-item">
+                        <div class="detail-label">Status</div>
+                        <div class="detail-value">
+                            <span class="badge ${result.enabled ? 'badge-success' : 'badge-warning'}">
+                                ${result.enabled ? '✅ Aktiv' : '⚠️ Inaktiv'}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Umgebung</div>
+                        <div class="detail-value">${result.environment}</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Produkte Sync</div>
+                        <div class="detail-value">${result.schedules.products}</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Bestellungen Sync</div>
+                        <div class="detail-value">${result.schedules.orders}</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Täglicher Sync</div>
+                        <div class="detail-value">${result.schedules.daily}</div>
+                    </div>
+                `;
+                
+                if (result.enabled) {
+                    showStatus('✅ Automatische Synchronisation ist aktiv!', 'success', 'settingsStatus');
+                } else {
+                    showStatus('⚠️ Automatische Synchronisation ist deaktiviert (Development Mode)', 'warning', 'settingsStatus');
+                }
+            } catch (error) {
+                showStatus(`❌ Fehler beim Laden des Auto-Sync Status: ${error.message}`, 'error', 'settingsStatus');
+            }
+        }
+        
+        // Webhook Setup Function
+        async function setupWebhooks() {
+            showStatus('Webhooks werden automatisch eingerichtet...', 'loading', 'settingsStatus');
+            try {
+                const result = await apiCall('/api/sync/webhooks/setup', 'POST');
+                if (result.success) {
+                    showStatus(`✅ Webhooks erfolgreich eingerichtet!<br><br>Konfigurierte Webhooks:<br>• ${result.webhooks.join('<br>• ')}`, 'success', 'settingsStatus');
+                } else {
+                    throw new Error(result.error || 'Webhook setup failed');
+                }
+            } catch (error) {
+                showStatus(`
+                    ⚠️ Automatische Webhook-Einrichtung fehlgeschlagen: ${error.message}
+                    <br><br>
+                    <strong>Manuelle Einrichtung:</strong>
+                    <br>Gehen Sie zu: <strong>Shopify Admin → Einstellungen → Benachrichtigungen → Webhooks</strong>
+                    <br><br>
+                    Fügen Sie diese Webhook-URLs hinzu:
+                    <br>• Produkt erstellt/aktualisiert: <code>https://web-production-f552.up.railway.app/api/webhooks/products</code>
+                    <br>• Bestellung erstellt/aktualisiert: <code>https://web-production-f552.up.railway.app/api/webhooks/orders</code>
+                    <br><br>
+                    Format: JSON, HTTP POST
+                `, 'error', 'settingsStatus');
+            }
+        }
+        
+        // Initialize Dashboard
+        window.addEventListener('load', () => {
+            console.log('Dashboard geladen, lade Statistiken...');
+            loadDashboardStats();
+            checkHealth();
+            getSchedulerStatus(); // Load scheduler status on startup
         });
     </script>
 </body>
